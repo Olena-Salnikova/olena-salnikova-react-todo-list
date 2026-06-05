@@ -27,7 +27,7 @@ export const initialTodoState = {
   todoList: [],
   error: '',
   filterError: '',
-  isTodoListLoading: false,
+  isTodoListLoading: true,
   sortBy: 'createdAt',
   sortDirection: 'desc',
   filterTerm: '',
@@ -49,6 +49,7 @@ export function todoReducer(state, action) {
         ...state,
         todoList: action.payload.todos,
         isTodoListLoading: false,
+        error: '',
         filterError: '',
       };
 
