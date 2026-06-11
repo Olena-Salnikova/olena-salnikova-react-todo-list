@@ -1,19 +1,25 @@
 import { useEffect, useReducer, useCallback } from 'react';
-import TodoForm from './TodoForm.jsx';
-import TodoList from './TodoList/TodoList.jsx';
-import SortBy from '../../shared/SortBy.jsx';
-import useDebounce from '../../utils/useDebounce';
-import FilterInput from '../../shared/FilterInput.jsx';
+import { useSearchParams } from 'react-router';
+import TodoForm from '../features/Todos/TodoForm.jsx';
+import TodoList from '../features/Todos/TodoList/TodoList.jsx';
+import SortBy from '../shared/SortBy.jsx';
+import useDebounce from '../utils/useDebounce.js';
+import FilterInput from '../shared/FilterInput.jsx';
+import StatusFilter from '../shared/StatusFilter.jsx';
 import {
   todoReducer,
   initialTodoState,
   TODO_ACTIONS,
-} from '../../reducers/todoReducer';
-import { useAuth } from '../../hooks/useAuth.jsx';
+} from '../reducers/todoReducer.js';
+import { useAuth } from '../hooks/useAuth.jsx';
 
 function TodosPage() {
   const { token } = useAuth();
+  const [searchParams] = useSearchParams(); // Hook for reading URL query parameters
   const [state, dispatch] = useReducer(todoReducer, initialTodoState);
+
+  // Get the status filter from the URL, default is 'all'
+  const statusFilter = searchParams.get('status') || 'all';
 
   const {
     todoList,
@@ -63,7 +69,7 @@ function TodosPage() {
             'X-CSRF-TOKEN': token,
           },
           credentials: 'include',
-        });
+         });
 
         if (response.status === 401) {
           throw new Error('unauthorized');
@@ -316,17 +322,23 @@ function TodosPage() {
         }
       />
 
+      {/* Add filter components */}
+      <StatusFilter />
+
       <FilterInput
         filterTerm={filterTerm}
         onFilterChange={handleFilterChange}
       />
 
       <TodoForm onAddTodo={addTodo} />
+      
+      {/* Pass statusFilter as a prop to TodoList */}
       <TodoList
         todoList={todoList}
         onUpdateTodo={updateTodo}
         onCompleteTodo={completeTodo}
         dataVersion={dataVersion}
+        statusFilter={statusFilter}
       />
     </div>
   );
