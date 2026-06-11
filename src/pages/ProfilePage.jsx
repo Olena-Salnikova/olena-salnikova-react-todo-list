@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth.jsx';
 
 function ProfilePage() {
-  const { token, user, email } = useAuth(); // Get user info and token from auth context
+  const { token, email } = useAuth();
+  const username = email && email.includes('@') ? email.split('@')[0] : (email || 'User');
   const [todoStats, setTodoStats] = useState({ total: 0, completed: 0, active: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -61,7 +62,8 @@ function ProfilePage() {
   return (
     <div style={{ padding: '1rem', maxWidth: '500px', margin: '0 auto', textAlign: 'left' }}>
       <h2>User Profile</h2>
-      <p><strong>Name:</strong> {user?.name || email || 'User'}</p>
+      <p><strong>Name:</strong> {username}</p>
+      <p><strong>Email:</strong> {email || 'Not available'}</p>
       <p><strong>Status:</strong> Authenticated Account</p>
 
       <h3 style={{ marginTop: '1.5rem' }}>Todo Statistics</h3>
