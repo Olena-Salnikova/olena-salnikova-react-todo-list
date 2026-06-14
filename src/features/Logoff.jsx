@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import { useAuth } from '../hooks/useAuth.jsx';
 
 function Logoff() {
   const { logout } = useAuth();
+  const navigate = useNavigate(); // Hook for programmatic navigation
   const [isLoggingOff, setIsLoggingOff] = useState(false);
   const [logoffError, setLogoffError] = useState('');
 
@@ -13,10 +15,14 @@ function Logoff() {
     try {
       const result = await logout();
 
-      if (!result.success) {
+      if (result.success) {
+        navigate('/login'); // Redirect to the login page on successful logout
+      } else {
         setLogoffError(result.error || 'Logout failed');
+        setIsLoggingOff(false); // Reset the loading flag only on error
       }
-    } finally {
+    } catch {
+      setLogoffError('An unexpected error occurred during logout.');
       setIsLoggingOff(false);
     }
   }
