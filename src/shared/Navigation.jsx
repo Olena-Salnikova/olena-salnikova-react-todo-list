@@ -6,11 +6,8 @@ function Navigation() {
   const { isAuthenticated } = useAuth();
 
   // Define a function to style the active navigation link
-  const navLinkStyle = ({ isActive }) => ({
-    fontWeight: isActive ? '700' : '500',
-    color: isActive ? '#3182ce' : '#4a5568',
-    borderBottom: isActive ? '2px solid #3182ce' : '2px solid transparent',
-  });
+  const getNavLinkClass = ({ isActive }) =>
+    `${styles.link} ${isActive ? styles.active : ''}`;
 
   return (
     <nav style={{ marginTop: '0.5rem' }}>
@@ -18,7 +15,7 @@ function Navigation() {
     
         {/* "About" link is always visible */}
         <li>
-          <NavLink to="/about" style={navLinkStyle} className={styles.link}>
+          <NavLink to="/about" className={getNavLinkClass}>
             About
           </NavLink>
         </li>
@@ -27,12 +24,12 @@ function Navigation() {
         {isAuthenticated && (
           <>
             <li>
-              <NavLink to="/todos" style={navLinkStyle} className={styles.link}>
+              <NavLink to="/todos" className={getNavLinkClass}>
                 Todos
               </NavLink>
             </li>
             <li>
-              <NavLink to="/profile" style={navLinkStyle} className={styles.link}>
+              <NavLink to="/profile" className={getNavLinkClass}>
                 Profile
               </NavLink>
             </li>
@@ -42,7 +39,7 @@ function Navigation() {
         {/* "Login" link is visible only to unauthenticated users */}
         {!isAuthenticated && (
           <li>
-            <NavLink to="/login" style={navLinkStyle} className={styles.link}>
+            <NavLink to="/login" className={getNavLinkClass}>
               Login
             </NavLink>
           </li>

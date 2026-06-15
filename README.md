@@ -1,12 +1,12 @@
 # React Todo Application
 
-## 🔗 Live Application Link
-- **Repository Demo**: [Olena Salnikova GitHub Application] (https://github.com/Olena-Salnikova/olena-salnikova-react-todo-list)
-
 A modern, high-performance Todo management application built with React 18 and Vite. This application features comprehensive CRUD functionality, dynamic client-side filtering, and asynchronous caching state patterns. It is fully polished for production with custom styling architecture, mobile-first responsive design, and defensive client-side security measures.
 
+## 🔗 Live Application Link
+- **Deployment Status**: Local Execution Deployment (Production deployment is omitted per assignment provisions. Evaluation is conducted entirely through local environment runtime context and official video walkthrough).
+- **Code Repository**: [Olena Salnikova GitHub Application](https://github.com/Olena-Salnikova/olena-salnikova-react-todo-list)
+
 ## 📸 Technical Showcase
-*(Tip: Take 2 screenshots of your working app—one desktop, one mobile viewport emulation—and save them into a folder named `screenshots` inside your repository, then uncomment the paths below!)*
 
 ![Desktop Overview](./screenshots/desktop.png)
 ![Mobile Layout](./screenshots/mobile.png)
@@ -30,6 +30,22 @@ A modern, high-performance Todo management application built with React 18 and V
 - **CSS Modules**: Chosen to safeguard the application against global namespace contamination. Every visual view maps strictly to isolated components, allowing scalable refactoring.
 - **Accessibility & Mobile First**: Every interaction point (such as state check actions and submit buttons) maintains a physical bounding footprint of at least **44px** to ensure fluent mobile touchscreen tracking and keyboard input focus layout compliance.
 - **Secure Error Architecture**: Technical logs and underlying system stacks are strictly abstracted away from production rendering context to completely prevent platform surface vulnerabilities.
+
+## 📜 Available Scripts
+
+In the project directory, you can run the following package scripts:
+
+### `npm run dev`
+Runs the application in the local development server context. Open `http://localhost:3001` to view it in your browser.
+
+### `npm run build`
+Compiles and bundles the isolated production assets into the `dist` folder. It minifies the source code and optimizes the application for deployment.
+
+### `npm run preview`
+Locally boots up and serves the production build folder (`dist`) to verify compilation stability prior to public hosting.
+
+### `npm run lint`
+Executes strict automated ESLint code quality profiles across the codebase to identify style errors and unused code elements.
 
 ## 🚀 Installation & Local Launch
 
@@ -61,6 +77,11 @@ A modern, high-performance Todo management application built with React 18 and V
 - Integrate full end-to-end unit testing scripts via Vitest and React Testing Library profiles.
 - Implement Progressive Web App (PWA) manifest specifications for completely offline utility tracking.
 - Build custom global theming tokens to toggle dark/light layout context dynamically.
+
+## 📬 Contact Information
+- **Developer Name**: Olena Salnikova
+- **GitHub Profile**: [https://github.com](https://github.com/Olena-Salnikova)
+- **Project Link**: [olena-salnikova-react-todo-list](https://github.com/Olena-Salnikova/olena-salnikova-react-todo-list)
 
 ## 📄 License
 This codebase is distributed openly under the provisions of the MIT License.
