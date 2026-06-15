@@ -1,11 +1,11 @@
+import TextInputWithLabel from './TextInputWithLabel';
+
 function FilterInput({ filterTerm, onFilterChange }) {
   return (
     <div>
-      <label htmlFor="filterInput" style={{ marginRight: 4 }}>
-        Search todos:</label>
-      <input
-        id="filterInput"
-        type="text"
+      <TextInputWithLabel
+        elementId="filterInput"
+        labelText="Search todos:"
         value={filterTerm}
         onChange={e => onFilterChange(e.target.value)}
         placeholder="Search by title..."

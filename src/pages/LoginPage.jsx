@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { useAuth } from '../hooks/useAuth.jsx';
+import TextInputWithLabel from '../shared/TextInputWithLabel.jsx';
+import styles from './TodosPage.module.css';
+import formStyles from '../features/Todos/TodoForm.module.css';
 
 function LoginPage() {
   const { login, isAuthenticated } = useAuth();
@@ -42,40 +45,42 @@ function LoginPage() {
   }
 
   return (
-    <div className="login-page">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
+    <div className={styles.container}>
+      <h2 className={styles.title}>Login</h2>
+      
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         {authError && (
-          <div style={{ color: 'red', marginBottom: 10 }}>
-            {authError}
+          <div className={styles.errorBox} style={{ marginBottom: '4px' }}>
+            <span>{authError}</span>
           </div>
         )}
 
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            id="email"
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            disabled={isLoggingOn}
-          />
-        </div>
+        <TextInputWithLabel
+          elementId="email"
+          labelText="Email:"
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          disabled={isLoggingOn}
+        />
 
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            id="password"
-            type="password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            disabled={isLoggingOn}
-          />
-        </div>
+        <TextInputWithLabel
+          elementId="password"
+          labelText="Password:"
+          type="password"
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          disabled={isLoggingOn}
+        />
 
-        <button type="submit" disabled={isLoggingOn}>
+        <button 
+          type="submit" 
+          className={formStyles.submitBtn}
+          style={{ width: '100%', marginTop: '8px' }}
+          disabled={isLoggingOn}
+        >
           {isLoggingOn ? 'Logging in...' : 'Log On'}
         </button>
       </form>

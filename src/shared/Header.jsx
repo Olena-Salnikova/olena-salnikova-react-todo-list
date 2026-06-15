@@ -1,20 +1,29 @@
 import { useAuth } from '../hooks/useAuth.jsx';
 import Logoff from '../features/Logoff.jsx';
 import Navigation from './Navigation.jsx';
+import styles from './Header.module.css';
 
 function Header() {
   const { isAuthenticated, email } = useAuth();
+  const username = email && email.includes('@') ? email.split('@')[0] : (email || 'User');
 
   return (
-    <header style={{ paddingBottom: '1rem', borderBottom: '1px solid #eee', marginBottom: '1rem' }}>
-      <h1>Todo List</h1>
+    <header className={styles.headerBar}>
+      {/* Left section: Logo and navigation */}
+      <div className={styles.navSection}>
+        <h1 className={styles.logo}>Todo List</h1>
+        {/* Render navigation links */}
+        <Navigation /> 
+      </div>
 
-      {/* Render navigation links */}
-      <Navigation />
-
+      {/* Right section: Capsule with logout button */}
       {isAuthenticated && (
-        <div style={{ marginTop: 12 }}>
-          {email && <span style={{ marginRight: 8 }}>Welcome, {email}</span>}
+        <div className={styles.userSection}>
+          {email && (
+            <span className={styles.welcomeText}>
+              Welcome, <strong>{username}</strong>
+            </span>
+          )}
           <Logoff />
         </div>
       )}

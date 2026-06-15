@@ -1,0 +1,99 @@
+.headerBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 650px;
+  margin: 20px auto 10px auto;
+  padding: 12px 24px;
+  background-color: transparent;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Left section: Logo and navigation */
+.navSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.logo {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #1a202c;
+  margin: 0;
+  letter-spacing: -0.025em;
+}
+
+.navLinks {
+  display: flex;
+  gap: 16px;
+}
+
+/* Styles for navigation links */
+.link {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #4a5568;
+  text-decoration: none; /* Remove default underline */
+  transition: color 0.2s ease;
+}
+
+/* Smooth hover state as per requirements */
+.link:hover {
+  color: #3182ce;
+}
+
+/* Right section: Greeting and logout button */
+.userSection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.welcomeText {
+  font-size: 0.9rem;
+  color: #4a5568;
+  margin: 0;
+}
+
+/* Styled logout button (min. height 44px for accessibility) */
+.logoutBtn {
+  min-height: 44px;
+  padding: 0 16px;
+  background-color: #edf2f7;
+  color: #4a5568;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logoutBtn:hover {
+  background-color: #e2e8f0;
+  color: #2d3748;
+}
+
+.logoutBtn:focus {
+  outline: 3px solid #90cdf4;
+}
+
+/* Mobile screens */
+@media (max-width: 640px) {
+  .headerBar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    margin: 10px 16px;
+    padding: 0;
+  }
+
+  .userSection {
+    justify-content: space-between;
+  }
+}

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useAuth } from '../hooks/useAuth.jsx';
+import styles from '../pages/TodosPage.module.css';
 
 function Logoff() {
   const { logout } = useAuth();
@@ -29,13 +30,37 @@ function Logoff() {
 
   return (
     <>
-      <button type="button" onClick={handleLogoff} disabled={isLoggingOff}>
+      <button 
+        type="button" 
+        onClick={handleLogoff} 
+        disabled={isLoggingOff}
+        style={{
+          minHeight: '44px',
+          padding: '0 16px',
+          backgroundColor: '#3182ce',
+          color: '#ffffff',
+          border: 'none',
+          borderRadius: '8px',
+          fontSize: '0.9rem',
+          fontWeight: '600',
+          cursor: isLoggingOff ? 'not-allowed' : 'pointer',
+          transition: 'all 0.2s ease',
+          whiteSpace: 'nowrap'
+        }}
+        onMouseEnter={(e) => {
+          if (!isLoggingOff) e.target.style.backgroundColor = '#2b6cb0';
+        }}
+        onMouseLeave={(e) => {
+          if (!isLoggingOff) e.target.style.backgroundColor = '#3182ce';
+        }}
+      >
         {isLoggingOff ? 'Logging out...' : 'Log Off'}
       </button>
 
+      {/* Error message */}
       {logoffError && (
-        <div style={{ color: 'red', marginTop: 8 }}>
-          {logoffError}
+        <div className={styles.errorBox} style={{ marginTop: 8, padding: '8px 12px' }}>
+          <span>{logoffError}</span>
         </div>
       )}
     </>

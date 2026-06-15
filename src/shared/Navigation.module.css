@@ -1,0 +1,21 @@
+.navList {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.link {
+  font-size: 1rem;
+  color: #4a5568;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  padding: 6px 0;
+  cursor: pointer;
+}
+
+/* Hover effect as per requirements */
+.link:hover {
+  color: #3182ce;
+}
