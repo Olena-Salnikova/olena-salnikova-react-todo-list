@@ -150,16 +150,19 @@
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
-    padding: 8px 0;
+  }
+
+  .editWrapper {
+    width: 100%;
   }
 
   .actionsWrapper {
     width: 100%;
-    justify-content: flex-end;
+    display: flex;
+    gap: 12px;
   }
 
   .btn {
     flex: 1; /* Buttons share width equally on mobile */
-    margin-right: 0;
   }
 }

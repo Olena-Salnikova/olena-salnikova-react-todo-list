@@ -283,7 +283,7 @@ function TodosPage() {
       {filterError && (
         <div className={styles.filterErrorBox}>
           <span>{filterError}</span>
-          <div style={{ display: 'flex', gap: '8px' }}>
+          <div className={styles.errorActions}>
             <button
               className={styles.errorBtn}
               onClick={() => dispatch({ type: TODO_ACTIONS.CLEAR_FILTER_ERROR })}

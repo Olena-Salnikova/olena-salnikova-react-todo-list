@@ -1,5 +1,8 @@
 # React Todo Application
 
+## 🔗 Live Application Link
+- **Repository Demo**: [Olena Salnikova GitHub Application] (https://github.com/Olena-Salnikova/olena-salnikova-react-todo-list)
+
 A modern, high-performance Todo management application built with React 18 and Vite. This application features comprehensive CRUD functionality, dynamic client-side filtering, and asynchronous caching state patterns. It is fully polished for production with custom styling architecture, mobile-first responsive design, and defensive client-side security measures.
 
 ## 📸 Technical Showcase
