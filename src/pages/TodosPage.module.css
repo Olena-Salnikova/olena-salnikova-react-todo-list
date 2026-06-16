@@ -116,7 +116,7 @@
 /* Mobile screens */
 @media (max-width: 1024px) {
   .container {
-    margin: 20px 20px;
+    margin: 20px auto;
   }
 }
 
