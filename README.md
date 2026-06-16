@@ -4,6 +4,7 @@ A modern, high-performance Todo management application built with React 18 and V
 
 ## 🔗 Live Application Link
 - **Deployment Status**: Local Execution Deployment (Production deployment is omitted per assignment provisions. Evaluation is conducted entirely through local environment runtime context and official video walkthrough).
+- **Official Video Walkthrough**: [Olena Salnikova - Video Presentation on YouTube](https://www.youtube.com/watch?v=mejPw1B05I0)
 - **Code Repository**: [Olena Salnikova GitHub Application](https://github.com/Olena-Salnikova/olena-salnikova-react-todo-list)
 
 ## 📸 Technical Showcase
