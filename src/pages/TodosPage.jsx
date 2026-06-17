@@ -6,6 +6,8 @@ import SortBy from '../shared/SortBy.jsx';
 import useDebounce from '../utils/useDebounce.js';
 import FilterInput from '../shared/FilterInput.jsx';
 import StatusFilter from '../shared/StatusFilter.jsx';
+import styles from './TodosPage.module.css';
+
 import {
   todoReducer,
   initialTodoState,
@@ -78,7 +80,7 @@ function TodosPage() {
         if (response.status === 404) {
           const errorData = await response.json();
 
-          if (errorData.message === 'No tasks found for user') {
+          if (errorData.message === 'No tasks found for user.') {
             dispatch({
               type: TODO_ACTIONS.FETCH_SUCCESS,
               payload: {
@@ -88,11 +90,11 @@ function TodosPage() {
             return;
           }
 
-          throw new Error(errorData.message || 'Failed to fetch tasks');
+          throw new Error(errorData.message || 'Failed to fetch tasks.');
         }
 
         if (!response.ok) {
-          throw new Error('Failed to fetch tasks');
+          throw new Error('Failed to fetch tasks.');
         }
 
         const data = await response.json();
@@ -103,7 +105,7 @@ function TodosPage() {
             todos: data.tasks || [],
           },
         });
-      } catch (error) {
+      } catch {
         const isFilterError =
           debouncedFilterTerm ||
           sortBy !== 'createdAt' ||
@@ -113,8 +115,8 @@ function TodosPage() {
           type: TODO_ACTIONS.FETCH_ERROR,
           payload: {
             message: isFilterError
-              ? `Error filtering/sorting todos: ${error.message}`
-              : `Error fetching todos: ${error.message}`,
+              ? `Error filtering or sorting todos.`
+              : `Error fetching todos. Please try again later.`,
             isFilterError,
           },
         });
@@ -148,7 +150,7 @@ function TodosPage() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to add task');
+        throw new Error('Failed to add task.');
       }
 
       const data = await response.json();
@@ -163,12 +165,12 @@ function TodosPage() {
       });
 
       invalidateCache();
-    } catch (err) {
+    } catch {
       dispatch({
         type: TODO_ACTIONS.ADD_TODO_ERROR,
         payload: {
           tempTodoId: tempTodo.id,
-          message: err.message || 'Failed to add todo',
+          message: 'Failed to add todo. Please check your inputs.',
         },
       });
     }
@@ -198,7 +200,7 @@ function TodosPage() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to update todo');
+        throw new Error('Failed to update todo.');
       }
 
       dispatch({
@@ -206,12 +208,12 @@ function TodosPage() {
       });
 
       invalidateCache();
-    } catch (err) {
+    } catch {
       dispatch({
         type: TODO_ACTIONS.UPDATE_TODO_ERROR,
         payload: {
           originalTodo,
-          message: err.message || 'Failed to update todo',
+          message: 'Failed to update todo.',
         },
       });
     }
@@ -240,7 +242,7 @@ function TodosPage() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to complete todo');
+        throw new Error('Failed to complete todo.');
       }
 
       dispatch({
@@ -248,91 +250,95 @@ function TodosPage() {
       });
 
       invalidateCache();
-    } catch (err) {
+    } catch {
       dispatch({
         type: TODO_ACTIONS.COMPLETE_TODO_ERROR,
         payload: {
           originalTodo,
-          message: err.message || 'Failed to complete todo',
+          message: 'Failed to complete todo. Please try again later.',
         },
       });
     }
   }
 
   return (
-    <div>
-      <h1>My Todos</h1>
+    <div className={styles.container}>
+      <h1 className={styles.title}>My Todos</h1>
 
+      {/* Display global errors */}
       {error && (
-        <div style={{ color: 'red', marginBottom: 8 }}>
-          {error}
+        <div className={styles.errorBox}>
+          <span>{error}</span>
           <button
-            style={{ marginLeft: 8 }}
+            className={styles.errorBtn}
             onClick={() => dispatch({ type: TODO_ACTIONS.CLEAR_ERROR })}
             type="button"
           >
-            Clear Error
+            Dismiss
           </button>
         </div>
       )}
 
+      {/* Display filter errors */}
       {filterError && (
-        <div style={{ color: 'orange', marginBottom: 8 }}>
-          <p>{filterError}</p>
-          <button
-            style={{ marginRight: 8 }}
-            onClick={() => dispatch({ type: TODO_ACTIONS.CLEAR_FILTER_ERROR })}
-            type="button"
-          >
-            Clear Filter Error
-          </button>
-          <button
-            onClick={() => dispatch({ type: TODO_ACTIONS.RESET_FILTERS })}
-            type="button"
-          >
-            Reset Filters
-          </button>
+        <div className={styles.filterErrorBox}>
+          <span>{filterError}</span>
+          <div className={styles.errorActions}>
+            <button
+              className={styles.errorBtn}
+              onClick={() => dispatch({ type: TODO_ACTIONS.CLEAR_FILTER_ERROR })}
+              type="button"
+            >
+              Dismiss
+            </button>
+            <button
+              className={styles.errorBtn}
+              onClick={() => dispatch({ type: TODO_ACTIONS.RESET_FILTERS })}
+              type="button"
+            >
+              Reset Filters
+            </button>
+          </div>
         </div>
       )}
 
+      {/* Display loading state */}
+      <TodoForm onAddTodo={addTodo} />
+
+      {/* Filter block, search, and sorting */}
+      <div className={styles.controlsSection}>
+        <FilterInput
+          filterTerm={filterTerm}
+          onFilterChange={handleFilterChange}
+        />
+        <StatusFilter />
+        <SortBy
+          sortBy={sortBy}
+          sortDirection={sortDirection}
+          onSortByChange={(newSortBy) =>
+            dispatch({
+              type: TODO_ACTIONS.SET_SORT,
+              payload: { sortBy: newSortBy, sortDirection },
+            })
+          }
+          onSortDirectionChange={(newSortDirection) =>
+            dispatch({
+              type: TODO_ACTIONS.SET_SORT,
+              payload: { sortBy, sortDirection: newSortDirection },
+            })
+          }
+        />
+      </div>
+
+      {/* Loading state with spinner placeholder */}
       {isTodoListLoading && (
-        <div style={{ marginBottom: 8 }}>Loading...</div>
+        <div className={styles.loadingBox}>
+          <div className={styles.spinner}></div>
+          <span>Loading tasks...</span>
+        </div>
       )}
 
-      <SortBy
-        sortBy={sortBy}
-        sortDirection={sortDirection}
-        onSortByChange={(newSortBy) =>
-          dispatch({
-            type: TODO_ACTIONS.SET_SORT,
-            payload: {
-              sortBy: newSortBy,
-              sortDirection,
-            },
-          })
-        }
-        onSortDirectionChange={(newSortDirection) =>
-          dispatch({
-            type: TODO_ACTIONS.SET_SORT,
-            payload: {
-              sortBy,
-              sortDirection: newSortDirection,
-            },
-          })
-        }
-      />
-
-      {/* Add filter components */}
-      <StatusFilter />
-
-      <FilterInput
-        filterTerm={filterTerm}
-        onFilterChange={handleFilterChange}
-      />
-
-      <TodoForm onAddTodo={addTodo} />
-      
-      {/* Pass statusFilter as a prop to TodoList */}
+      {/* Pass statusFilter and dataVersion as props to TodoList */}
       <TodoList
         todoList={todoList}
         onUpdateTodo={updateTodo}

@@ -1,30 +1,21 @@
 import { NavLink } from 'react-router';
 import { useAuth } from '../hooks/useAuth.jsx';
+import styles from './Navigation.module.css';
 
 function Navigation() {
   const { isAuthenticated } = useAuth();
 
   // Define a function to style the active navigation link
-  const navLinkStyle = ({ isActive }) => ({
-    fontWeight: isActive ? 'bold' : 'normal',
-    textDecoration: isActive ? 'underline' : 'none',
-    color: '#0066cc',
-  });
+  const getNavLinkClass = ({ isActive }) =>
+    `${styles.link} ${isActive ? styles.active : ''}`;
 
   return (
     <nav style={{ marginTop: '0.5rem' }}>
-      <ul
-        style={{
-          listStyle: 'none',
-          display: 'flex',
-          gap: '1rem',
-          padding: 0,
-          margin: 0,
-        }}
-      >
+      <ul className={styles.navList}>
+    
         {/* "About" link is always visible */}
         <li>
-          <NavLink to="/about" style={navLinkStyle}>
+          <NavLink to="/about" className={getNavLinkClass}>
             About
           </NavLink>
         </li>
@@ -33,12 +24,12 @@ function Navigation() {
         {isAuthenticated && (
           <>
             <li>
-              <NavLink to="/todos" style={navLinkStyle}>
+              <NavLink to="/todos" className={getNavLinkClass}>
                 Todos
               </NavLink>
             </li>
             <li>
-              <NavLink to="/profile" style={navLinkStyle}>
+              <NavLink to="/profile" className={getNavLinkClass}>
                 Profile
               </NavLink>
             </li>
@@ -48,7 +39,7 @@ function Navigation() {
         {/* "Login" link is visible only to unauthenticated users */}
         {!isAuthenticated && (
           <li>
-            <NavLink to="/login" style={navLinkStyle}>
+            <NavLink to="/login" className={getNavLinkClass}>
               Login
             </NavLink>
           </li>

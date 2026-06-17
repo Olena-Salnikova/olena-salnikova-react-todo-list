@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useAuth } from '../hooks/useAuth.jsx'; // Use the correct path to useAuth hook
+import styles from './TodosPage.module.css';
 
 function HomePage() {
   const { isAuthenticated } = useAuth();
@@ -15,8 +16,12 @@ function HomePage() {
   }, [isAuthenticated, navigate]);
 
   return (
-    <div>
-      <p>Redirecting...</p>
+    <div className={styles.container}>
+      {/* Centered loading state during redirect */}
+      <div className={styles.loadingBox}>
+        <div className={styles.spinner}></div>
+        <span>Redirecting...</span>
+      </div>
     </div>
   );
 }
